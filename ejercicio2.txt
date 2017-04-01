@@ -1,0 +1,103 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct{
+    float **Matriz;
+    int filas, columnas;
+} Matrix;
+//Variables de tipo Matrix
+Matrix MtrA,MtrB,p,r,s;
+Matrix IniciarMatriz(Matrix n);
+Matrix sumarMatriz(Matrix w, Matrix z);
+
+int main()//funcion principal
+{
+    /****************************************************************
+* Programa: Ejercicio 2
+* Objetivo: Suma de matrices via estructturas
+* Fecha Creación: 29/03/2017 Fecha última actualización: 31/03/2017
+* Autor/Grupo: Marco Rivas Zapata
+* Asignatura: Estructura de Datos Sección: Laboratorio 2
+******************************************************************/
+int i,j,v;
+
+//Pedir valores para las filas y columnas de la matriz
+printf("Favor ingrese el n\243mero de filas de Matriz A: ");
+scanf("%d",&MtrA.filas);//Se asigna valor al atributo filas de la variable tipo Matrix MtrB
+printf("Favor ingrese el n\243mero de columnas de Matriz A: ");
+scanf("%d",&MtrA.columnas);//Se asigna valor al atributo columnas de la variable tipo Matrix MtrB
+
+printf("******************************\n");
+p = IniciarMatriz(MtrA);//Llama a la funcion encargada de inicializar la matriz y esta entrega un resultado el cual se guarda en P
+printf("Valores de la Matriz A %d x %d \n",p.filas,p.columnas);
+for(i=0;i<p.filas;i++){
+   for(j=0;j<p.columnas;j++){//recorreo la matriz y muestra en pantalla los valores de esta
+       printf("%2.1f |",p.Matriz[i][j]);//Se muestra por pantalla la matriz A
+    }
+    printf("\n");
+}
+printf("******************************\n");
+do{
+v = 0;
+//Pedir valores para las filas y columnas de la matriz
+printf("Favor ingrese el n\243mero de filas de Matriz B: ");
+scanf("%d",&MtrB.filas);//Se asigna valor al atributo filas de la variable tipo Matrix MtrB
+if(MtrB.filas!= MtrA.filas){//verifica que la fila de la matriz b sea del mismo tamaño de la matriz a.
+    v = 1;
+printf("El tamano de la fila debe ser del mismo tamano de la Matriz A.\n");
+}
+}while(v==1);
+do{
+v=0;
+printf("Favor ingrese el n\243mero de columnas de Matriz B. ");
+scanf("%d",&MtrB.columnas);//Se asigna valor al atributo columnas de la variable tipo Matrix MtrB
+if (MtrB.columnas!=MtrA.columnas){//verifica que la columna de la matriz b sea del mismo tamaño de la matriz a.
+    v=1;
+    printf("El tamano de la columna debe ser del mismo tamano de la Matriz A.\n");
+}
+}while(v==1);
+printf("******************************\n");
+r = IniciarMatriz(MtrB);//Llama a la funcion encargada de inicializar la matriz y esta entrega un resultado el cual se guarda en R
+printf("Valores de la Matriz B %d x %d \n",r.filas,r.columnas);
+for(i=0;i<r.filas;i++){
+   for(j=0;j<r.columnas;j++){//recorreo la matriz y muestra en pantalla los valores de esta
+       printf("%2.1f |",r.Matriz[i][j]);//Se muestra por pantalla la matriz B
+    }
+    printf("\n");
+}
+
+printf("******************************\n");
+s = sumarMatriz(p,r);//se llama a la función sumarMatriz pasando los 2 valores Matrix y devolviendo 1 valor Matrix (Matriz sumanda)
+printf("Valores de la Matriz suma %d x %d \n",s.filas,s.columnas);
+for(i=0;i<s.filas;i++){
+   for(j=0;j<s.columnas;j++){//recorreo la matriz y muestra en pantalla los valores de esta
+       printf("%2.1f |",s.Matriz[i][j]);//Se muestra por pantalla la matriz B
+    }
+    printf("\n");
+}
+}
+//Funcion para inicializar y llenar matriz
+Matrix IniciarMatriz(Matrix n){
+int i,j,x;
+n.Matriz = (float**)malloc(n.filas*sizeof(float*));//Reservar memoria para las filas de la matriz
+for(x=0;x<n.filas;x++){
+    n.Matriz[x] = (float*)malloc((n.columnas*sizeof(float)));//Reservar memoria para las columnas de la matriz
+}
+srand(time(NULL));//inicializa srand para numeros aleatorios
+for(i=0;i<n.filas;i++){
+   for(j=0;j<n.columnas;j++){
+       n.Matriz[i][j] = rand()%10;//asigna numeros aleatorios a la matriz
+    }
+}
+return n;
+}
+
+Matrix sumarMatriz(Matrix w, Matrix z){//Funcion que suma las matrices
+int i,j,x;
+for(i=0;i<w.filas;i++){//repasa las filas de la matriz w
+    for(j=0;j<z.columnas;j++){//repasa las columnas de la matriz z
+    w.Matriz[i][j] = w.Matriz[i][j] + z.Matriz[i][j];//suma los valores y actualiza la matriz w con los nuevos valores
+    }
+}
+return w;
+}
+

@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+ /****************************************************************
+* Programa: Ejercicio 3
+* Objetivo: Mostrar arreglo
+* Fecha Creación: 31/03/2017 Fecha última actualización: 01/04/2017
+* Autor/Grupo: Marco Rivas Zapata
+* Asignatura: Estructura de Datos Sección: Laboratorio 2
+******************************************************************/
+//creación de la estructura
+typedef struct{
+    int *arr;
+    int r,z;
+    int largo_arr;
+
+}array;
+
+array iniciarArray (int n);
+array mostrarArray (array p);
+
+int main()//función principal
+{
+array m_arreglo;
+int n, i, j;
+n = leerLargoArreglo();//llamada a la función leerLargoArreglo y el retorno se guarda en la variable n
+m_arreglo = iniciarArray(n);//llamada a la función iniciarArra
+mostrarArray(m_arreglo);
+}
+
+//funcion leerArreglo
+int leerLargoArreglo(void){
+    int l;
+printf("Introduzca el largo del Arreglo:");
+   scanf("%d",&l);//se guarda lo ingresado por el usuario en la variable l
+return l;//se retorna el valor de l
+}
+
+//Inicio función iniciar Array
+array iniciarArray (int n){
+int i,j;
+array arreglo;
+arreglo.largo_arr = n;
+arreglo.arr = (int *)malloc(n*sizeof(int));//se crea el arreglo reservando memoria
+srand(time(NULL));//inicio numeros aleatorios
+for(i=0;i<n;i++){//ciclo para llenar el arreglo
+    arreglo.arr[i] = rand()%10 + 1;//se llena el arreglo con números aleatorios
+}
+return arreglo;//retorna el arreglo en la variable de tipo array.
+}
+
+//Función de tipo array que muestra el arreglo.
+array mostrarArray (array n){
+int i;
+printf("El arreglo es: \n");
+for(i=0;i<n.largo_arr;i++){
+    printf("%d |",n.arr[i]);
+}
+
+}
+
